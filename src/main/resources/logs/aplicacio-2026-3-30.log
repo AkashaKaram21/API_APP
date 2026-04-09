@@ -1,0 +1,28 @@
+[INFO] 2026-03-30 19:49.42 - Class: NotaController - Method: getAllNotas - Message: Endpoint GET /api/notas llamado
+[INFO] 2026-03-30 19:49.42 - Class: NotaService - Method: getAllNotas - Message: Obteniendo todas las notas
+[INFO] 2026-03-30 19:49.42 - Class: NotaService - Method: getAllNotas - Message: Se encontraron 0 notas
+[INFO] 2026-03-30 19:49.42 - Class: NotaController - Method: getAllNotas - Message: Retornando 0 notas
+[INFO] 2026-03-30 19:49.54 - Class: NotaController - Method: createNota - Message: Endpoint POST /api/notas llamado
+[INFO] 2026-03-30 19:49.54 - Class: NotaService - Method: createNota - Message: Creando nueva nota con titulo: Mi título
+[INFO] 2026-03-30 19:49.54 - Class: NotaService - Method: createNota - Message: Nota creada exitosamente: Mi título
+[INFO] 2026-03-30 19:49.54 - Class: NotaController - Method: createNota - Message: Nota creada: NotaResponseDTO [id=0, title=Mi título, subtitle=Subtítulo, text=Contenido de la nota]
+[INFO] 2026-03-30 19:49.59 - Class: NotaController - Method: getAllNotas - Message: Endpoint GET /api/notas llamado
+[INFO] 2026-03-30 19:49.59 - Class: NotaService - Method: getAllNotas - Message: Obteniendo todas las notas
+[INFO] 2026-03-30 19:49.59 - Class: NotaService - Method: getAllNotas - Message: Se encontraron 1 notas
+[INFO] 2026-03-30 19:49.59 - Class: NotaController - Method: getAllNotas - Message: Retornando 1 notas
+[INFO] 2026-03-30 19:50.36 - Class: NotaService - Method: getNota - Message: Accedint a la nota amb id: 1
+[INFO] 2026-03-30 19:51.38 - Class: NotaService - Method: updateNota - Message: Actualitzant nota amb la id: 1
+[INFO] 2026-03-30 19:51.55 - Class: NotaService - Method: deleteNota - Message: Borrant la nota amb id: 1
+[INFO] 2026-03-30 19:51.55 - Class: NotaService - Method: deleteNota - Message: La nota amb id: 1 s'ha borrat correctament
+[INFO] 2026-03-30 20:01.11 - Class: NotaController - Method: createNota - Message: Endpoint POST /api/notes llamado
+[INFO] 2026-03-30 20:01.11 - Class: NotaService - Method: createNota - Message: Creant nova nota amb títol: Mi primera nota
+[INFO] 2026-03-30 20:01.11 - Class: NotaService - Method: createNota - Message: Nota creada exitosament: Mi primera nota
+[INFO] 2026-03-30 20:01.11 - Class: NotaController - Method: createNota - Message: Nota creada: NotaResponseDTO [id=0, title=Mi primera nota, subtitle=Recordatorio importante, text=Comprar pan y leche al salir del trabajo.]
+[INFO] 2026-03-30 20:01.20 - Class: NotaController - Method: getAllNotas - Message: Endpoint GET /api/notes llamado
+[INFO] 2026-03-30 20:01.20 - Class: NotaService - Method: getAllNotas - Message: Obtenint totes les notes
+[INFO] 2026-03-30 20:01.20 - Class: NotaService - Method: getAllNotas - Message: S'han trobat 1 notes
+[INFO] 2026-03-30 20:01.20 - Class: NotaController - Method: getAllNotas - Message: Retornant 1 notes
+[INFO] 2026-03-30 20:01.23 - Class: NotaController - Method: getNotaById - Message: Endpoint GET /api/notes/1 llamado
+[INFO] 2026-03-30 20:01.23 - Class: NotaService - Method: getNotaById - Message: Accedint a la nota amb id: 1
+[INFO] 2026-03-30 20:01.36 - Class: NotaService - Method: updateNota - Message: Actualitzant nota amb la id: 1
+[INFO] 2026-03-30 20:01.52 - Class: NotaService - Method: updateNota - Message: Actualitzant nota amb la id: 1

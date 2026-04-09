@@ -1,8 +1,8 @@
-drop table if exists notas;
+DROP TABLE IF EXISTS nota;
 
-create table notas (
-    id bigint auto_increment primary key,
-    title varchar(150) not null,
-    subtitle varchar(255) not null,
-    text text not null,
-   );
+CREATE TABLE nota (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(150) NOT NULL,
+    subtitle VARCHAR(255) NOT NULL,
+    text LONGTEXT NOT NULL
+);

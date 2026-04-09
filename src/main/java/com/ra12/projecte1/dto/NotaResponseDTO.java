@@ -2,7 +2,7 @@ package com.ra12.projecte1.dto;
 
 import com.ra12.projecte1.model.Nota;
 
-// Tota l'informació sobre una nota que podem retornar en una resposta
+// Tota l'informació sobre una nota que podem fer display
 public class NotaResponseDTO {
     private long id;
     private String title;
@@ -10,7 +10,7 @@ public class NotaResponseDTO {
     private String text;
 
     public NotaResponseDTO() {
-
+        
     }
 
     public NotaResponseDTO(long id, String title, String subtitle, String text) {
@@ -26,7 +26,7 @@ public class NotaResponseDTO {
         this.subtitle = nota.getSubtitle();
         this.text = nota.getText();
     }
-
+    
     public long getId() {
         return id;
     }

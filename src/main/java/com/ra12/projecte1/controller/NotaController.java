@@ -17,47 +17,47 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ra12.projecte1.dto.NotaRequestDTO;
 import com.ra12.projecte1.dto.NotaResponseDTO;
-import com.ra12.projecte1.logging.UserLogging;
+import com.ra12.projecte1.logging.NotaLogging;
 import com.ra12.projecte1.model.Nota;
 import com.ra12.projecte1.service.NotaService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/notes")
 public class NotaController {
 
     @Autowired
     NotaService notaService;
 
     @Autowired
-    UserLogging userLogging;
+    NotaLogging appLogging; // Cambiado para apuntar a NotaLogging
 
-    // Creació d'una nota
-    @PostMapping("/notas")
+    // POST /api/notes
+    @PostMapping
     public ResponseEntity<NotaResponseDTO> createNota(@RequestBody NotaRequestDTO notaRequestDTO) {
-        userLogging.logInfo("Endpoint POST /api/notas llamado");
+        appLogging.logInfo("Endpoint POST /api/notes llamado");
 
         try {
             Nota nota = new Nota(notaRequestDTO.getTitle(), notaRequestDTO.getSubtitle(), notaRequestDTO.getText());
             notaService.createNota(nota);
 
             NotaResponseDTO response = new NotaResponseDTO(nota);
-            userLogging.logInfo("Nota creada: " + response);
+            appLogging.logInfo("Nota creada: " + response);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
         } catch (IllegalArgumentException e) {
-            userLogging.logError("Error de validació: ", e);
+            appLogging.logError("Error de validació: ", e);
             return ResponseEntity.badRequest().build();
         } catch (Exception e) {
-            userLogging.logError("Error al crear la nota: ", e);
+            appLogging.logError("Error al crear la nota: ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    // Obtenim totes les notes
-    @GetMapping("/notas")
+    // GET /api/notes
+    @GetMapping
     public ResponseEntity<List<NotaResponseDTO>> getAllNotas() {
-        userLogging.logInfo("Endpoint GET /api/notas llamado");
+        appLogging.logInfo("Endpoint GET /api/notes llamado");
 
         try {
             List<Nota> notas = notaService.getAllNotas();
@@ -66,36 +66,52 @@ public class NotaController {
                     .map(nota -> new NotaResponseDTO(nota))
                     .collect(Collectors.toList());
 
-            userLogging.logInfo("Retornant " + response.size() + " notes");
+            appLogging.logInfo("Retornant " + response.size() + " notes");
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
-            userLogging.logError("Error al obtenir les notes: ", e);
+            appLogging.logError("Error al obtenir les notes: ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    // Obtenim una nota a través de la seva id
-    @GetMapping("/notas/{notaId}")
-    public ResponseEntity<String> getNotaById(@PathVariable long notaId) {
-        return notaService.getNota(notaId);
+    // GET /api/notes/{id}
+    @GetMapping("/{id}")
+    public ResponseEntity<NotaResponseDTO> getNotaById(@PathVariable long id) {
+        appLogging.logInfo("Endpoint GET /api/notes/" + id + " llamado");
+
+        Nota nota = notaService.getNotaById(id);
+
+        if (nota == null) {
+            appLogging.logError("No existeix cap nota amb la id: " + id, null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return ResponseEntity.ok(new NotaResponseDTO(nota));
     }
 
-    // Endpoint per actualitzar una nota a través de la seva id
-    @PutMapping("/notas/{notaId}/update")
-    public ResponseEntity<String> updateNota(@RequestBody Nota nota, @PathVariable long notaId) throws Exception {
-        return notaService.updateNota(notaId, nota);
+    // PUT /api/notes/{id} -> Limpio y RESTful
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateNota(@PathVariable long id, @RequestBody Nota nota) {
+        boolean updated = notaService.updateNota(id, nota);
+        
+        if (!updated) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No s'ha pogut trobar la nota.");
+        }
+        
+        return ResponseEntity.status(HttpStatus.OK).body("Nota actualitzada!");
     }
 
-    // Endpoint per borrar una nota a través de la seva id
-    @DeleteMapping("/notas/{notaId}/delete")
-    public ResponseEntity<String> deleteNota(@PathVariable long notaId) throws Exception {
-        return notaService.deleteNota(notaId);
-    }
-
-    // Endpoint per borrar totes les notes
-    @DeleteMapping("/notas")
-    public ResponseEntity<String> deleteAllNotas() throws Exception {
-        return notaService.deleteAllNotas();
+    // DELETE /api/notes/{id} -> Limpio y RESTful
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteNota(@PathVariable long id) {
+        boolean deleted = notaService.deleteNota(id);
+        
+        if (!deleted) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No s'ha pogut esborrar la nota amb id: " + id);
+        }
+        
+        return ResponseEntity.status(HttpStatus.OK).body("S'ha esborrat la nota amb id: " + id);
     }
 }

@@ -1,6 +1,7 @@
 package com.ra12.projecte1.dto;
 
-// Els camps necessaris per crear o modificar una nota
+// DTO para una request de creación de nota
+// Contiene los datos necesarios para crear una nota
 public class NotaRequestDTO {
     private String title;
     private String subtitle;
